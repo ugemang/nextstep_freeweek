@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashSet;
@@ -34,7 +35,14 @@ public class SetTest {
     @ParameterizedTest
     @ValueSource(ints = {1,2,3})
     @DisplayName("ParameterizedTest를 해보자. 오 좋은데?")
-    public void contains(int num){
+    public void containsParameterizedTest(int num){
         assertThat(numbers.contains(num)).isTrue();
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1:true","2:true","3:true","4:false","5:false"}, delimiter = ':')
+    @DisplayName("CsvSource로 ParameterizedTest를 해보자.")
+    public void contains(int num, boolean result){
+        assertThat(numbers.contains(num)).isEqualTo(result);
     }
 }
